@@ -1,11 +1,11 @@
 require 'rails_helper'
 RSpec.describe PhoneNumbersController, :type => :controller do
   let(:valid_attributes) {
-    { number: '38383838' }
+    { number: '38383838', person_id: 1}
   }
 
   let(:invalid_attributes) {
-    { number: nil }
+    { number: nil, person_id: nil }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -80,14 +80,15 @@ RSpec.describe PhoneNumbersController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        { number: '111' }
+        { number: 'MyNewString', person_id: 2}
       }
 
       it "updates the requested phone_number" do
         phone_number = PhoneNumber.create! valid_attributes
         put :update, {:id => phone_number.to_param, :phone_number => new_attributes}, valid_session
         phone_number.reload
-        expect(phone_number.number).to eq('111')
+        expect(phone_number.number).to eq('MyNewString')
+        expect(phone_number.person_id).to eq(2)
       end
 
       it "assigns the requested phone_number as @phone_number" do
